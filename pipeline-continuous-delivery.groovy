@@ -10,34 +10,36 @@ pipeline {
             }
         }
 
-        parallel {
-            stage('Teste unitários') {
-                agent {
-                    agent any
+        stage('Continuous Delivery') {
+            parallel {
+                stage('Teste unitários') {
+                    agent {
+                        agent any
+                    }
+                    steps {
+                        echo "Trecho 1"
+                    }
                 }
-                steps {
-                    echo "Trecho 1"
-                }
-            }
 
-            stage('Testes de aceitação') {
-                agent {
-                    agent any
+                stage('Testes de aceitação') {
+                    agent {
+                        agent any
+                    }
+                    steps {
+                        echo "Trecho 2"
+                    }
                 }
-                steps {
-                    echo "Trecho 2"
-                }
-            }
 
-            stage('Testes de negócio') {
-                agent {
-                    agent any
+                stage('Testes de negócio') {
+                    agent {
+                        agent any
+                    }
+                    steps {
+                        echo "Trecho 3"
+                    }
                 }
-                steps {
-                    echo "Trecho 3"
-                }
-            }
 
+            }
         }
 
         stage('Deploy to Stage') {
