@@ -1,3 +1,7 @@
+#!/usr/bin/env groovy
+
+def MAVEN_VERSION="MAVEN3.6.3"
+
 pipeline {
     //Agent é o NÓ que vai rodar o job
     agent any
@@ -15,10 +19,35 @@ pipeline {
                 }
             }
         }
+        
+       stage('Validate') {
+            steps {
+                script {
+                    withMaven(maven:MAVEN_VERSION){
+                        //sh está rodando dentro do container, não no jenkins.
+                        sh "mvn clean validate"
+                    }
+                }
+                //http://maven.apache.org/components/ref/3.3.9/maven-model/apidocs/org/apache/maven/model/Model.html
+                IMAGE = readMavenPom().getArtficactId()
+                VERSION = readMavenPom().getVersion()
+                PACKING = readMavenPom().getPacking()
+                
+                APP = "${IMAGE}.${PACKING}"
+                //Instrução ECHO irá sair no CONSOLE do Jenkins    
+                echo "Nome da aplicação: ${APP}"
+            }
+        }        
 
         stage('Build') {
             steps {
-                echo 'Fazendo a build do projeto'
+                script{
+                    withMaven(maven:MAVEN_VERSION){
+                        //sh está rodando dentro do container, não no jenkins.
+                        //Fazer o build do projeto COMPILAR
+                        sh "mvn clean package"
+                    }                    
+                }
             }
         }
 
