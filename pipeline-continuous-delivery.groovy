@@ -34,7 +34,7 @@ pipeline {
                     //http://maven.apache.org/components/ref/3.3.9/maven-model/apidocs/org/apache/maven/model/Model.html
                     IMAGE = readMavenPom().getArtifactId()
                     VERSION = readMavenPom().getVersion()
-                    PACKING = readMavenPom().getPacking()
+                    PACKING = readMavenPom().getPackaging()
 
                     APP = "${IMAGE}.${PACKING}"
                     //Instrução ECHO irá sair no CONSOLE do Jenkins    
