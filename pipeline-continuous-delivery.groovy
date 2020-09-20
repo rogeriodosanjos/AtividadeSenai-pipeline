@@ -4,6 +4,18 @@ pipeline {
 
     //Fases do pipeline
     stages {
+        
+       stage('Checkout') {
+            steps {
+                script {
+                    checkout([
+                            $class           : 'GitSCM',
+                            branches         : [[name: 'repo/${BRANCH}']],
+                            userRemoteConfigs: scm.userRemoteConfigs])
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Fazendo a build do projeto'
