@@ -31,15 +31,15 @@ pipeline {
                         //sh está rodando dentro do container, não no jenkins.
                         sh "mvn clean validate"
                     }
+                    //http://maven.apache.org/components/ref/3.3.9/maven-model/apidocs/org/apache/maven/model/Model.html
+                    IMAGE = readMavenPom().getArtficactId()
+                    VERSION = readMavenPom().getVersion()
+                    PACKING = readMavenPom().getPacking()
+
+                    APP = "${IMAGE}.${PACKING}"
+                    //Instrução ECHO irá sair no CONSOLE do Jenkins    
+                    echo "Nome da aplicação: ${APP}"
                 }
-                //http://maven.apache.org/components/ref/3.3.9/maven-model/apidocs/org/apache/maven/model/Model.html
-                IMAGE = readMavenPom().getArtficactId()
-                VERSION = readMavenPom().getVersion()
-                PACKING = readMavenPom().getPacking()
-                
-                APP = "${IMAGE}.${PACKING}"
-                //Instrução ECHO irá sair no CONSOLE do Jenkins    
-                echo "Nome da aplicação: ${APP}"
             }
         }        
 
