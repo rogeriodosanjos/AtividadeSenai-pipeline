@@ -1,6 +1,10 @@
 #!/usr/bin/env groovy
 
 def MAVEN_VERSION="MAVEN3.6.3"
+def IMAGE=""
+def VERSION=""
+def PACKING=""
+def APP=""
 
 pipeline {
     //Agent é o NÓ que vai rodar o job
