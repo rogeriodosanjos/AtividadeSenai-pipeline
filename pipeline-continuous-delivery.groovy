@@ -94,6 +94,34 @@ pipeline {
                     def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', submitter: 'rkivisto,admin', parameters: [choice(choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
                     sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
                     echo 'Deploy em produção'
+                    
+                    def discordImageSuccess = 'https://www.jenkins.io/images/logos/formal/256.png'
+                    def discordImageError = 'https://www.jenkins.io/images/logos/fire/256.png'
+
+                    def discordDesc =
+                            "Result: ${currentBuild.currentResult}\n" +
+                                    "Project: Nome projeto\n" +
+                                    "Commit: Quem fez commit\n" +
+                                    "Author: Autor do commit\n" +
+                                    "Message: mensagem do changelog ou commit\n" +
+                                    "Duration: ${currentBuild.durationString}"
+
+                                    //Variaveis de ambiente do Jenkins - NOME DO JOB E NÚMERO DO JOB
+                                    def discordFooter = "${env.JOB_BASE_NAME} (#${BUILD_NUMBER})"
+                                    def discordTitle = "${env.JOB_BASE_NAME} (build #${BUILD_NUMBER})"
+                                    def urlWebhook = "https://discord.com/api/webhooks/757221470505140315/sFLBXyK4BuTOLDBV3qQLtMRD8dr2WjSCw8mswW9WzFyBkX7lC569PN_U31UDaj1Sj-F-"
+
+                    discordSend description: discordDesc,
+                            footer: discordFooter,
+                            link: env.JOB_URL,
+                            result: currentBuild.currentResult,
+                            title: discordTitle,
+                            webhookURL: urlWebhook,
+                            successful: currentBuild.resultIsBetterOrEqualTo('SUCCESS'),
+                            thumbnail: 'SUCCESS'.equals(currentBuild.currentResult) ? discordImageSuccess : discordImageError
+                    
+                    
+                    
                 }
             }
         }         
