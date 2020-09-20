@@ -32,7 +32,7 @@ pipeline {
                         sh "mvn clean validate"
                     }
                     //http://maven.apache.org/components/ref/3.3.9/maven-model/apidocs/org/apache/maven/model/Model.html
-                    IMAGE = readMavenPom().getArtficactId()
+                    IMAGE = readMavenPom().getArtifactId()
                     VERSION = readMavenPom().getVersion()
                     PACKING = readMavenPom().getPacking()
 
