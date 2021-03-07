@@ -28,8 +28,10 @@ pipeline {
             steps {
                 script {
                     withMaven(maven:MAVEN_VERSION){
-                        //sh está rodando dentro do container, não no jenkins.
-                        sh "mvn clean validate"
+                         withEnv(["JAVA_HOME=${tool 'jdk11'}", "PATH=${tool 'jdk11'}/bin:${env.PATH}"]) {
+                                //sh está rodando dentro do container, não no jenkins.
+                                sh "mvn clean validate"
+                         }
                     }
                     //http://maven.apache.org/components/ref/3.3.9/maven-model/apidocs/org/apache/maven/model/Model.html
                     IMAGE = readMavenPom().getArtifactId()
@@ -49,7 +51,10 @@ pipeline {
                     withMaven(maven:MAVEN_VERSION){
                         //sh está rodando dentro do container, não no jenkins.
                         //Fazer o build do projeto COMPILAR
-                        sh "mvn clean package"
+                         withEnv(["JAVA_HOME=${tool 'jdk11'}", "PATH=${tool 'jdk11'}/bin:${env.PATH}"]) {
+                                sh "mvn clean package"
+                         }
+                        
                     }                    
                 }
             }
