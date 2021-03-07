@@ -114,7 +114,8 @@ pipeline {
                                     //Variaveis de ambiente do Jenkins - NOME DO JOB E NÚMERO DO JOB
                                     def discordFooter = "${env.JOB_BASE_NAME} (#${BUILD_NUMBER})"
                                     def discordTitle = "${env.JOB_BASE_NAME} (build #${BUILD_NUMBER})"
-                                    def urlWebhook = "https://discord.com/api/webhooks/817826898671173632/XbJsVpEM_DfXa_JP6-mf5r0dVhWOro1Qgwas1wOmuxpYV6CuCvFWioZ63UGSAQxjdfeZ"
+                                    //def urlWebhook = "https://discord.com/api/webhooks/817826898671173632/XbJsVpEM_DfXa_JP6-mf5r0dVhWOro1Qgwas1wOmuxpYV6CuCvFWioZ63UGSAQxjdfeZ"
+                                    def urlWebhook = "https://discord.com/api/webhooks/711712945934958603/tZiZgmNgW_lHleONDiPu5RVM24wbuxFKcpMBDJsY2WxSqjltAz3UCYupqSIE7q0rlmHP"
 
                     discordSend description: discordDesc,
                             footer: discordFooter,
