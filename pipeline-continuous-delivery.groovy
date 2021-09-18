@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     git branch: 'master',
-                        url: 'https://github.com/paulonill/exemplo-spring-mvc-thymeleaf.git'
+                        url: 'https://github.com/rogeriodosanjos/AtividadeSenai-projeto.git'
                 }
             }
         }
